@@ -1,6 +1,6 @@
 export default defineContentScript({
-  matches: ['*://*.google.com/*'],
+  matches: ['<all_urls>'],
   main() {
-    console.log('Hello content.');
+    // You'll write the text selection logic here later
   },
 });

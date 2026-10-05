@@ -1,34 +1,35 @@
-import { useState } from 'react';
-import reactLogo from '@/assets/react.svg';
-import wxtLogo from '/wxt.svg';
 import './App.css';
 
+import { useState, useEffect } from 'react';
+
 function App() {
-  const [count, setCount] = useState(0);
+  // 1. Create state for the translation result
+  // 2. Hardcode a word (e.g. "bonjour")
+  // 3. Send a message to the background script to translate it:
+  //    browser.runtime.sendMessage({ type: 'TRANSLATE', text: 'bonjour', from: 'fr', to: 'en' })
+  // 4. Display the result
+
+
+  const [ translation, setTranslation ] = useState("")
+
+  useEffect(() => {
+    const translate = async () => {
+      const response = await browser.runtime.sendMessage({
+        type: 'TRANSLATE',
+        text: 'bonjour',
+        from: 'fr',
+        to: 'en',
+      });
+      setTranslation(response.translation);
+    };
+    translate();
+  }, [])
 
   return (
-    <>
-      <div>
-        <a href="https://wxt.dev" target="_blank">
-          <img src={wxtLogo} className="logo" alt="WXT logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>WXT + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the WXT and React logos to learn more
-      </p>
-    </>
+    <div>
+      <h1>Wordcatch</h1>
+      {/* Your UI here */}
+    </div>
   );
 }
 

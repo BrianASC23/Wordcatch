@@ -1,6 +1,6 @@
 {
-  "name": "wxt-react-starter",
-  "description": "manifest.json description",
+  "name": "wordcatch",
+  "description": "Highlight unfamiliar words to get translations and definitions",
   "private": true,
   "version": "0.0.0",
   "type": "module",
