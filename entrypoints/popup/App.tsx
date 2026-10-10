@@ -1,5 +1,3 @@
-import './App.css';
-
 import { useState, useEffect } from 'react';
 
 function App() {
@@ -26,8 +24,8 @@ function App() {
   }, [])
 
   return (
-    <div>
-      <h1>Wordcatch</h1>
+    <div className="w-80 p-4">
+      <h1 className="text-2xl font-bold">Wordcatch</h1>
       {/* Your UI here */}
     </div>
   );
