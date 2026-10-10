@@ -25,6 +25,11 @@ export default defineBackground(() => {
           }
 
           const data = await response.json();
+
+          if (data.responseStatus !== 200 && data.responseStatus !== '200'){
+            throw new Error(data.responseData.translatedText);
+          }
+
           sendResponse({ translation: data.responseData.translatedText });
         } catch (error){
           console.error('Failed to fetch API response', error);

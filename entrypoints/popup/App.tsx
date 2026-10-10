@@ -12,13 +12,18 @@ function App() {
 
   useEffect(() => {
     const translate = async () => {
-      const response = await browser.runtime.sendMessage({
-        type: 'TRANSLATE',
-        text: 'bonjour',
-        from: 'fr',
-        to: 'en',
-      });
-      setTranslation(response.translation);
+      try {
+        const response = await browser.runtime.sendMessage({
+          type: 'TRANSLATE',
+          text: 'bonjour',
+          from: 'fr',
+          to: 'en',
+        });
+        setTranslation(response.translation ?? response.error);
+      } catch (error) {
+        console.error('Error sending message to background script:', error);
+        setTranslation('Translation failed');
+      }
     };
     translate();
   }, [])
@@ -26,7 +31,9 @@ function App() {
   return (
     <div className="w-80 p-4">
       <h1 className="text-2xl font-bold">Wordcatch</h1>
-      {/* Your UI here */}
+        <p className="mt-2 text-lg">
+          {translation || 'Translating...'}
+        </p>
     </div>
   );
 }
