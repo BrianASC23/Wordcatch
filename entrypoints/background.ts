@@ -15,7 +15,7 @@ export default defineBackground(() => {
       const dstLang = message.to;
 
       // API
-      const url = 'https://api.mymemory.translated.net/get?q=${text}&langpair=${srcLang}|${dstLang}';
+      const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${srcLang}|${dstLang}`;
       async function fetchData(){
         try {
           const response = await fetch(url);
@@ -23,8 +23,12 @@ export default defineBackground(() => {
           if (!response.ok){
             throw new Error(`HTTP Error! Status: ${response.status}`);
           }
+
+          const data = await response.json();
+          sendResponse({ translation: data.responseData.translatedText });
         } catch (error){
-          console.error('Failed to fetch API response');
+          console.error('Failed to fetch API response', error);
+          sendResponse({ error: 'Translation failed' });
         }
       }
       fetchData();
